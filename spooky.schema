@@ -1,0 +1,29 @@
+CREATE SCHEMA Spooky;
+
+CREATE TABLE Spooky.vacation(
+    vacation_id INT AUTO_INCREMENT PRIMARY KEY,
+    destination VARCHAR(25) UNIQUE NOT NULL,
+    peak_time DATE,
+    number_of_activities INT NOT NULL,
+    travel_time INT NOT NULL
+);
+
+CREATE TABLE Spooky.family(
+    family_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(25) UNIQUE NOT NULL,
+    relation VARCHAR(25),
+    age INT NOT NULL,
+    vacation_length INT,
+    UNIQUE (name, relation)
+);
+
+CREATE TABLE Spooky.activities(
+    activity_id INT AUTO_INCREMENT PRIMARY KEY,
+    activity VARCHAR(25) UNIQUE NOT NULL,
+    destination VARCHAR(25) NOT NULL,
+    how_many INT,
+    who_suggested VARCHAR(25),
+    peak_time DATE,
+    FOREIGN KEY (destination) REFERENCES Spooky.vacation(destination),
+    FOREIGN KEY (who_suggested) REFERENCES Spooky.family(name)
+);
